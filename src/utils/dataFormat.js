@@ -1,0 +1,1 @@
+export const formatName = user => `${user?.last_name} ${user?.other_names ?? ""} ${user?.first_name}`
