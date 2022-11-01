@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 // @mui
 import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, Card, Container, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Typography } from '@mui/material';
 // components
 import Image from '../../components/Image';
 import { MotionViewport, varFade } from '../../components/animate';
@@ -10,20 +10,39 @@ import { MotionViewport, varFade } from '../../components/animate';
 
 const CARDS = [
   {
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_design.svg',
-    title: 'UI & UX Design',
-    description:
-      'The set is built on the principles of the atomic design system. It helps you to create projects fastest and easily customized packages for your projects.',
+    icon: '/icons/ic_cart.svg',
+    title: 'Farm with us',
+    description: '',
+    link: "/auth/register",
+    linkText: "Register",
   },
   {
-    icon: 'https://minimal-assets-api.vercel.app/assets/icons/ic_code.svg',
-    title: 'Development',
-    description: 'Easy to customize and extend each component, saving you time and money.',
+    icon: '/icons/ic_kanban.svg',
+    title: 'Logistics',
+    description: 'Quick, flexible and secure dispatch',
+    link: "/auth/register",
+    linkText: "Register",
   },
   {
-    icon: '/logo/logo_single.svg',
-    title: 'Branding',
-    description: 'Consistent design in colors, fonts ... makes brand recognition easy.',
+    icon: '/icons/ic_invoice.svg',
+    title: 'Warehousing/Storage',
+    description: 'Sustainable, portable and cold chain storage.',
+    link: "/auth/register",
+    linkText: "Register",
+  },
+  {
+    icon: '/icons/ic_dashboard.svg',
+    title: 'Food Processing',
+    description: `Let's process food in a clean fashion`,
+    link: "/auth/register",
+    linkText: "Register",
+  },
+  {
+    icon: '/icons/ic_user.svg',
+    title: 'Become a Partner',
+    description: `Let's discuss a great partnership. Reach out to our team to discuss`,
+    link: "/contact",
+    linkText: "Contact Us",
   },
 ];
 
@@ -100,11 +119,11 @@ export default function HomeMinimal() {
         >
           <m.div variants={varFade().inUp}>
             <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-              Minimal
+              What we offer?
             </Typography>
           </m.div>
           <m.div variants={varFade().inDown}>
-            <Typography variant="h2">What minimal helps you?</Typography>
+            <Typography variant="h2">You can invest in any of the following</Typography>
           </m.div>
         </Box>
 
@@ -139,6 +158,9 @@ export default function HomeMinimal() {
                   {card.title}
                 </Typography>
                 <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white' }}>{card.description}</Typography>
+                <Button sx={{
+                  marginTop: '2rem'
+                }} color='primary' variant="contained" href={card.link}>{card.linkText}</Button>
               </CardStyle>
             </m.div>
           ))}

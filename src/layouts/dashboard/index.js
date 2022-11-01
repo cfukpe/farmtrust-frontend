@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -13,6 +13,9 @@ import { HEADER, NAVBAR } from '../../config';
 import DashboardHeader from './header';
 import NavbarVertical from './navbar/NavbarVertical';
 import NavbarHorizontal from './navbar/NavbarHorizontal';
+import axiosInstance from 'src/utils/axios';
+import { useDispatch } from 'react-redux';
+import { setInvestmentPackages } from 'src/redux/slices/investmentPackages';
 
 // ----------------------------------------------------------------------
 
@@ -53,6 +56,23 @@ export default function DashboardLayout({ children }) {
   const [open, setOpen] = useState(false);
 
   const verticalLayout = themeLayout === 'vertical';
+
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    bootstrap()
+  }, [])
+
+  const bootstrap = async () => {
+    try {
+      const res = await axiosInstance.get('/investment_packages');
+
+      dispatch(setInvestmentPackages(res.data?.data ?? []))
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   if (verticalLayout) {
     return (

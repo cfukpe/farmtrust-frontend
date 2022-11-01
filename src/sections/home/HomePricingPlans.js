@@ -9,6 +9,7 @@ import { _homePlans } from '../../_mock';
 import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
 import { varFade, MotionViewport } from '../../components/animate';
+import { PATH_PAGE } from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
 
@@ -33,12 +34,12 @@ export default function HomePricingPlans() {
         <Box sx={{ mb: 10, textAlign: 'center' }}>
           <m.div variants={varFade().inUp}>
             <Typography component="div" variant="overline" sx={{ mb: 2, color: 'text.disabled' }}>
-              pricing plans
+              Our Services
             </Typography>
           </m.div>
           <m.div variants={varFade().inDown}>
             <Typography variant="h2" sx={{ mb: 3 }}>
-              The right plan for your business
+              Register for one or more services
             </Typography>
           </m.div>
           <m.div variants={varFade().inDown}>
@@ -47,7 +48,7 @@ export default function HomePricingPlans() {
                 color: isLight ? 'text.secondary' : 'text.primary',
               }}
             >
-              Choose the perfect plan for your needs. Always flexible to grow
+              Choose the service that suites your need.
             </Typography>
           </m.div>
         </Box>
@@ -55,14 +56,14 @@ export default function HomePricingPlans() {
         <Grid container spacing={5}>
           {_homePlans.map((plan) => (
             <Grid key={plan.license} item xs={12} md={4}>
-              <m.div variants={plan.license === 'Standard Plus' ? varFade().inDown : varFade().inUp}>
+              <m.div variants={plan.license === 'Loan' ? varFade().inDown : varFade().inUp}>
                 <PlanCard plan={plan} />
               </m.div>
             </Grid>
           ))}
         </Grid>
 
-        <m.div variants={varFade().in}>
+        {/* <m.div variants={varFade().in}>
           <Box sx={{ p: 5, mt: 10, textAlign: 'center' }}>
             <m.div variants={varFade().inDown}>
               <Typography variant="h3">Still have questions?</Typography>
@@ -84,7 +85,7 @@ export default function HomePricingPlans() {
               </Button>
             </m.div>
           </Box>
-        </m.div>
+        </m.div> */}
       </Container>
     </RootStyle>
   );
@@ -120,32 +121,36 @@ function PlanCard({ plan }) {
       <Stack spacing={5}>
         <div>
           <Typography variant="overline" component="div" sx={{ mb: 2, color: 'text.disabled' }}>
-            LICENSE
+            SERVICE
           </Typography>
           <Typography variant="h4">{license}</Typography>
         </div>
 
-        {standard ? (
-          <Image alt="package" src={icons[2]} sx={{ width: 40, height: 40 }} />
-        ) : (
-          <Stack direction="row" spacing={1}>
-            {icons.map((icon) => (
-              <Image key={icon} alt="package" src={icon} sx={{ width: 40, height: 40 }} />
-            ))}
-          </Stack>
-        )}
+        <Stack direction='column' spacing={1}>
+          <Iconify icon={plan.icon[license]} sx={{
+            fontSize: '2rem',
+            textAlign: 'center',
+            display: 'block',
+            background: '#90df90',
+            margin: '0 auto',
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            maxWidth: '200px',
 
+          }} />
+        </Stack>
         <Stack spacing={2.5}>
-          {commons.map((option) => (
+          {/* {commons.map((option) => (
             <Stack key={option} spacing={1.5} direction="row" alignItems="center">
               <Iconify icon={'eva:checkmark-fill'} sx={{ color: 'primary.main', width: 20, height: 20 }} />
               <Typography variant="body2">{option}</Typography>
             </Stack>
-          ))}
+          ))} */}
 
           <Divider sx={{ borderStyle: 'dashed' }} />
 
-          {options.map((option, optionIndex) => {
+          {options[license].map((option, optionIndex) => {
             const disabledLine =
               (standard && optionIndex === 1) ||
               (standard && optionIndex === 2) ||
@@ -177,28 +182,15 @@ function PlanCard({ plan }) {
           })}
         </Stack>
 
-        <Stack direction="row" justifyContent="flex-end">
-          <Link
-            color="text.secondary"
-            underline="always"
-            target="_blank"
-            rel="noopener"
-            href="https://material-ui.com/store/license/#i-standard-license"
-            sx={{ typography: 'body2', display: 'flex', alignItems: 'center' }}
-          >
-            Learn more <Iconify icon={'eva:chevron-right-fill'} width={20} height={20} />
-          </Link>
-        </Stack>
-
         <Button
           size="large"
           fullWidth
           variant={plus ? 'contained' : 'outlined'}
-          target="_blank"
+          // target="_blank"
           rel="noopener"
-          href="https://material-ui.com/store/items/minimal-dashboard/"
+          href={PATH_PAGE[license]}
         >
-          Choose Plan
+          See more
         </Button>
       </Stack>
     </Card>

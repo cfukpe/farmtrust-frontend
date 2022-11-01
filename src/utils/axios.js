@@ -15,4 +15,13 @@ axiosInstance.interceptors.response.use(
   // (error) => Promise.reject((error))
 );
 
+export const APIErrorHandler = response => {
+  return response.message ? response.message : error
+  if (error.status == 402) {
+
+  }
+
+
+}
+
 export default axiosInstance;

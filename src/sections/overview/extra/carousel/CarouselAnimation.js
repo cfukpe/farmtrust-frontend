@@ -6,7 +6,7 @@ import { useState, useRef } from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import { Box, Card, Paper, Button, Typography, CardContent } from '@mui/material';
 // _mock_
-import { _carouselsExample } from '../../../../_mock';
+import { homeCarousel, _carouselsExample } from '../../../../_mock';
 // components
 import Image from '../../../../components/Image';
 import { MotionContainer, varFade } from '../../../../components/animate';
@@ -41,14 +41,14 @@ export default function CarouselAnimation() {
   return (
     <Card>
       <Slider ref={carouselRef} {...settings}>
-        {_carouselsExample.map((item, index) => (
+        {homeCarousel.map((item, index) => (
           <CarouselItem key={item.id} item={item} isActive={index === currentIndex} />
         ))}
       </Slider>
 
       <CarouselArrowIndex
         index={currentIndex}
-        total={_carouselsExample.length}
+        total={homeCarousel.length}
         onNext={handleNext}
         onPrevious={handlePrevious}
       />

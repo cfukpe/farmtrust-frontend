@@ -5,6 +5,7 @@ import { Button, Box, Container, Typography } from '@mui/material';
 // components
 import Image from '../../components/Image';
 import { MotionViewport, varFade } from '../../components/animate';
+import { CarouselAnimation } from '../overview/extra/carousel';
 
 // ----------------------------------------------------------------------
 
@@ -30,7 +31,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
 export default function HomeAdvertisement() {
   return (
     <Container component={MotionViewport} style={{ padding: '1rem' }}>
-      <ContentStyle>
+      <CarouselAnimation />
+      {/* <ContentStyle>
         <Box
           component={m.div}
           variants={varFade().inUp}
@@ -80,7 +82,7 @@ export default function HomeAdvertisement() {
             </Button>
           </m.div>
         </Box>
-      </ContentStyle>
+      </ContentStyle> */}
     </Container>
   );
 }

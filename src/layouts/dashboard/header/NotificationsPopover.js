@@ -85,7 +85,7 @@ export default function NotificationsPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
+        {/* <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
           <List
             disablePadding
             subheader={
@@ -119,7 +119,7 @@ export default function NotificationsPopover() {
           <Button fullWidth disableRipple>
             View All
           </Button>
-        </Box>
+        </Box> */}
       </MenuPopover>
     </>
   );

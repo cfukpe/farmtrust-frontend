@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import sum from 'lodash/sum';
 import uniqBy from 'lodash/uniqBy';
+import axiosInstance from '../../utils/axios';
 // utils
 import axios from '../../utils/axios';
 //
@@ -214,8 +215,8 @@ export function getProducts() {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/products');
-      dispatch(slice.actions.getProductsSuccess(response.data.products));
+      const response = await axiosInstance.get('/products');
+      dispatch(slice.actions.getProductsSuccess(response.data?.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -228,10 +229,10 @@ export function getProduct(name) {
   return async () => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get('/api/products/product', {
+      const response = await axiosInstance.get(`products/${name}`, {
         params: { name },
       });
-      dispatch(slice.actions.getProductSuccess(response.data.product));
+      dispatch(slice.actions.getProductSuccess(response.data));
     } catch (error) {
       console.error(error);
       dispatch(slice.actions.hasError(error));

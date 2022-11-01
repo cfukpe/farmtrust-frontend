@@ -87,6 +87,7 @@ EcommerceCheckout.getLayout = function getLayout(page) {
 // ----------------------------------------------------------------------
 
 export default function EcommerceCheckout() {
+
   const { themeStretch } = useSettings();
 
   const dispatch = useDispatch();

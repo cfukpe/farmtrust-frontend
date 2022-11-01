@@ -19,9 +19,9 @@ const menuConfig = [
     path: '/',
   },
   {
-    title: 'Products',
+    title: 'Food Bank',
     icon: <Iconify icon={'ic:round-grain'} {...ICON_SIZE} />,
-    path: PATH_PAGE.components,
+    path: "#",
   },
   // {
   //   title: 'Farms',
@@ -63,14 +63,19 @@ const menuConfig = [
   //   ],
   // },
   {
-    title: 'Farms',
+    title: 'Products',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: PATH_DOCS,
+    path: "#",
   },
   {
     title: 'About',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: PATH_DOCS,
+    path: '#',
+  },
+  {
+    title: 'Market Place',
+    icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
+    path: PATH_PAGE.tradeAgro,
   },
 ];
 

@@ -10,6 +10,39 @@ export const _carouselsExample = [...Array(5)].map((_, index) => ({
   description: _mock.text.description(index),
 }));
 
+export const homeCarousel = [
+  {
+    id: 3,
+    title: 'Trust Savings',
+    image: `https://images.unsplash.com/photo-1616514197671-15d99ce7a6f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=873&q=80`,
+    description: "Worry no more about the future. Let's help you plan",
+  },
+  {
+    id: 1,
+    title: 'Trust Loans',
+    image: `https://images.unsplash.com/photo-1633158829875-e5316a358c6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`,
+    description: "Get access to equipment, seed and other loans when you meet the criteria",
+  },
+  {
+    id: 4,
+    title: 'Food Bank',
+    image: `https://images.unsplash.com/photo-1624668430039-0175a0fbf006?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`,
+    description: "Worry no more about food! With as little as #200 daily you can get access to quality fresh food",
+  },
+  // {
+  //   id: 2,
+  //   title: `Helo 2`,
+  //   image: _mock.image.feed(4),
+  //   description: _mock.text.description(2),
+  // },
+  // {
+  //   id: 3,
+  //   title: 'Hello 5',
+  //   image: `https://images.unsplash.com/photo-1472653525502-fc569e405a74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80`,
+  //   description: _mock.text.description(3),
+  // },
+]
+
 export const _carouselsMembers = [...Array(5)].map((_, index) => ({
   id: _mock.id(index),
   name: _mock.name.fullName(index),

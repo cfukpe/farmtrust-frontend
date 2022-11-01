@@ -63,6 +63,7 @@ AuthProvider.propTypes = {
   children: PropTypes.node,
 };
 
+
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -126,14 +127,15 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (email, password, first_name, last_name, password_confirmation) => {
+  const register = async (email, password, first_name, last_name, password_confirmation, is_farmer) => {
 
     const response = await axios.post('/register', {
       email,
       password,
       first_name,
       last_name,
-      password_confirmation
+      password_confirmation,
+      is_farmer,
     });
     const { accessToken, user } = response.data;
     window.localStorage.setItem('accessToken', accessToken);

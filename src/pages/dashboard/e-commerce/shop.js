@@ -113,7 +113,7 @@ export default function EcommerceShop() {
   };
 
   return (
-    <Page title="Ecommerce: Shop">
+    <Page title="FARMTRUST: Products">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
           heading="Shop"
@@ -173,7 +173,7 @@ export default function EcommerceShop() {
         </Stack>
 
         <ShopProductList products={filteredProducts} loading={!products.length && isDefault} />
-        <CartWidget />
+        {/* <CartWidget /> */}
       </Container>
     </Page>
   );

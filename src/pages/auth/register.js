@@ -105,9 +105,9 @@ export default function Register() {
               <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
                 <Box sx={{ flexGrow: 1 }}>
                   <Typography variant="h4" gutterBottom>
-                    Investor Registration
+                    Registration
                   </Typography>
-                  <Typography sx={{ color: 'text.secondary' }}>Free forever. No credit card needed.</Typography>
+                  <Typography sx={{ color: 'text.secondary' }}>Easy and seamless.</Typography>
                 </Box>
                 <Tooltip title={capitalCase(method)}>
                   <>

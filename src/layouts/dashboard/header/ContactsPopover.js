@@ -62,10 +62,10 @@ export default function ContactsPopover() {
         }}
       >
         <Typography variant="h6" sx={{ p: 1.5 }}>
-          Contacts <Typography component="span">({_contacts.length})</Typography>
+          Customers <Typography component="span">({_contacts.length})</Typography>
         </Typography>
 
-        <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
+        {/* <Scrollbar sx={{ height: ITEM_HEIGHT * 6 }}>
           {_contacts.map((contact) => (
             <MenuItem key={contact.id}>
               <ListItemAvatar sx={{ position: 'relative' }}>
@@ -81,7 +81,7 @@ export default function ContactsPopover() {
               />
             </MenuItem>
           ))}
-        </Scrollbar>
+        </Scrollbar> */}
       </MenuPopover>
     </>
   );

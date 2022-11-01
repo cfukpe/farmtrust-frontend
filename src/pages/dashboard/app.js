@@ -24,6 +24,7 @@ import {
 // eslint-disable-next-line import/no-unresolved
 import { formatName } from 'src/utils/dataFormat';
 import { useEffect } from 'react';
+import { FARMER } from 'src/utils/constants';
 
 // ----------------------------------------------------------------------
 
@@ -35,11 +36,14 @@ GeneralApp.getLayout = function getLayout(page) {
 
 export default function GeneralApp() {
   const { user } = useAuth();
-  console.log(user)
 
   useEffect(() => {
-    if (user.role === "FARMER" && !user?.savings_plan) {
+    if (user.role === FARMER && !user?.savings_plan) {
       return window.location.href = "/dashboard/plans"
+    }
+
+    if (user.role === FARMER && user?.savings_plan && !user?.farm) {
+      return window.location.href = "/dashboard/plans/setting"
     }
   }, []);
 

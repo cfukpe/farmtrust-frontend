@@ -12,10 +12,11 @@ import { MotionContainer, varBounce } from '../../../components/animate';
 import Iconify from 'src/components/Iconify';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPlan } from 'src/redux/slices/plan';
-import { useFlutterwave } from 'flutterwave-react-v3'
 // import Flutterwave from 'flutterwave-node-v3'
 import useAuth from 'src/hooks/useAuth';
 import axiosInstance from 'src/utils/axios';
+import { usePaystackPayment } from 'react-paystack';
+import Router, { useRouter } from 'next/router';
 
 
 // ----------------------------------------------------------------------
@@ -68,14 +69,20 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function Plans() {
+    const { push } = useRouter();
 
     const plan = useSelector(state => state.plan)
     const auth = useAuth()
 
     const user = auth?.user;
 
+    if (user?.savings_plan) {
+        push('/dashboard/plans/setting')
+        return window.location.href = "/dashboard/plans/setting"
+    }
+
     const config = {
-        public_key: 'FLWPUBK_TEST-c5a322bf030af760d25fcb85d7bb2842-X',
+        public_key: process.env.FLUTTERWAVE_PK,
         tx_ref: Date.now(),
         amount: 1,
         currency: 'NGN',
@@ -92,25 +99,47 @@ export default function Plans() {
         },
     };
 
+    const paystackConfig = {
+        reference: (new Date()).getTime().toString(),
+        email: "farmer@gmail.com",
+        amount: 100,
+        publicKey: process.env.PAYSTACK_PK,
+    };
+
     const dispatch = useDispatch();
-
-    const handlePay = useFlutterwave(config)
-
-    const FLPK = 'FLWPUBK_TEST-c5a322bf030af760d25fcb85d7bb2842-X'
-    const FLSK = 'FLWSECK_TEST-26ec1af8f98d20fbfd2691826361ad5e-X'
 
 
     const handleChargeSuccess = async (response) => {
-        console.log(response, response.transaction_id)
         try {
             const res = await axiosInstance.post('/user/card-setting/verify', {
-                transactionId: response.transaction_id?.toString()
+                transactionId: response.transaction_id?.toString(),
+                savings_plan: plan?.plan,
+                user_id: user?.id,
             });
-            console.log(res)
+
+            push('/dashboard/plans/setting')
         } catch (error) {
             console.log(error)
         }
     }
+
+    // you can call this function anything
+    const onSuccess = async (reference) => {
+        // Implementation for whatever you want to do with reference and after success call.
+        const res = await axiosInstance.post('/user/card-setting/verify', {
+            transactionId: reference?.trxref,
+            savings_plan: plan?.plan,
+            user_id: user?.id,
+        });
+    };
+
+    // you can call this function anything
+    const onClose = () => {
+        // implementation for  whatever you want to do when the Paystack dialog closed.
+        console.log('closed')
+    }
+
+    const initializePayment = usePaystackPayment(paystackConfig);
 
     return (
         <Page title="Savings Plan" sx={{ height: 1 }}>
@@ -159,12 +188,15 @@ export default function Plans() {
                             // <NextLink href="/" passHref>
                             <Button
                                 size="large"
-                                onClick={() => handlePay({
-                                    callback: handleChargeSuccess,
-                                    onClose: () => {
-                                        console.log("Closed")
-                                    }
-                                })}
+                                // onClick={() => handlePay({
+                                //     callback: handleChargeSuccess,
+                                //     onClose: () => {
+                                //         console.log("Closed")
+                                //     }
+                                // })}
+                                onClick={() => {
+                                    initializePayment(onSuccess, onClose)
+                                }}
                                 variant="contained">
                                 Continue
                             </Button>

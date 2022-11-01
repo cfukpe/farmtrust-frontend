@@ -11,7 +11,7 @@ import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFCheckbox, RHFTextField } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
@@ -22,12 +22,15 @@ export default function RegisterForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [isFarmer, setIsFarmer] = useState(false);
+
   const RegisterSchema = Yup.object().shape({
     first_name: Yup.string().required('First name required'),
     last_name: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
     password_confirmation: Yup.string().required('Password Confirmation is required'),
+    is_farmer: Yup.boolean(),
   });
 
   const defaultValues = {
@@ -35,7 +38,8 @@ export default function RegisterForm() {
     last_name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    is_farmer: isFarmer,
   };
 
   const methods = useForm({
@@ -52,9 +56,8 @@ export default function RegisterForm() {
   } = methods;
 
   const onSubmit = async (data) => {
-    console.log(data)
     try {
-      await register(data.email, data.password, data.first_name, data.last_name, data.password_confirmation);
+      await register(data.email, data.password, data.first_name, data.last_name, data.password_confirmation, data.is_farmer);
     } catch (error) {
       console.error(error);
       reset();
@@ -103,6 +106,14 @@ export default function RegisterForm() {
               </InputAdornment>
             ),
           }}
+        />
+
+        <RHFCheckbox
+          name="is_farmer"
+          label="Are you a farmer?"
+          value={isFarmer}
+          checked={isFarmer}
+          onChange={e => { console.log(e.target.value); setIsFarmer(prev => !prev) }}
         />
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>

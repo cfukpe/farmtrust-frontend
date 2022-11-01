@@ -44,21 +44,22 @@ export default function HomePage() {
       <RootStyle>
         {/* <HomeHero /> */}
         <ContentStyle>
-          {/* <HomeMinimal /> */}
 
           {/* <HomeHugePackElements /> */}
 
-          {/* <HomeDarkMode />
+          {/* <HomeDarkMode /> */}
 
-          <HomeColorPresets />
+          {/* <HomeColorPresets /> */}
 
-          <HomeCleanInterfaces /> */}
+          {/* <HomeCleanInterfaces /> */}
 
-          {/* <HomePricingPlans /> */}
 
           {/* <HomeLookingFor /> */}
+
           <HomeAdvertisement />
-          <InvestmentProducts />
+          <HomePricingPlans />
+          <HomeMinimal />
+          {/* <InvestmentProducts /> */}
         </ContentStyle>
       </RootStyle>
     </Page>

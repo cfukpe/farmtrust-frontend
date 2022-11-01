@@ -21,16 +21,15 @@ export default function NavbarDocs() {
 
       <div>
         <Typography gutterBottom variant="subtitle1">
-          Hi, {user?.displayName}
+          Hi {user?.last_name},
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          Need help?
-          <br /> Please check our docs
+          chick below to go back to main website.
         </Typography>
       </div>
 
-      <Button href={PATH_DOCS} target="_blank" rel="noopener" variant="contained">
-        Documentation
+      <Button href={'/'} target="_blank" rel="noopener" variant="contained">
+        Website
       </Button>
     </Stack>
   );

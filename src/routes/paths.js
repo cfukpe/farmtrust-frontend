@@ -1,5 +1,7 @@
 // ----------------------------------------------------------------------
 
+import { FOOD_BANK, LOAN, SAVINGS } from "src/_mock";
+
 function path(root, sublink) {
   return `${root}${sublink}`;
 }
@@ -30,6 +32,11 @@ export const PATH_PAGE = {
   page404: '/404',
   page500: '/500',
   components: '/components',
+  tradeAgro: "https://tradeagro.com.ng/",
+  [SAVINGS]: '/about/savings',
+  [LOAN]: '/about/loan',
+  [FOOD_BANK]: '/about/food-bank',
+
 };
 
 export const PATH_DASHBOARD = {
@@ -89,6 +96,18 @@ export const PATH_DASHBOARD = {
     view: (title) => path(ROOTS_DASHBOARD, `/blog/post/${title}`),
     demoView: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
   },
+  farmer: {
+    savings: path(ROOTS_DASHBOARD, '/farmer/savings'),
+    loans: path(ROOTS_DASHBOARD, '/farmer/loans'),
+    farmManagement: path(ROOTS_DASHBOARD, '/farmer/farm-management'),
+    products: path(ROOTS_DASHBOARD, '/farmer/products'),
+    withdrawals: path(ROOTS_DASHBOARD, '/farmer/withdrawals'),
+    foodbank: path(ROOTS_DASHBOARD, '/foodbank'),
+  },
+  shared: {
+    savings: path(ROOTS_DASHBOARD, '/shared/savings'),
+    withdrawals: path(ROOTS_DASHBOARD, '/shared/withdrawals'),
+  }
 };
 
 export const PATH_DOCS = 'https://docs-minimals.vercel.app/introduction';

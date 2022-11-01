@@ -29,5 +29,6 @@ module.exports = withTM({
     AUTH0_DOMAIN: '',
     //
     MAPBOX: '',
+    PAYSTACK_PK: process.env.PAYSTACK_PK,
   },
 });
