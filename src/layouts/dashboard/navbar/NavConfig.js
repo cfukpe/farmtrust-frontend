@@ -33,6 +33,7 @@ export const appNavConfig = {
       items: [
         { title: 'Savings', path: PATH_DASHBOARD.shared.savings, icon: ICONS.dashboard },
         { title: 'Investments', path: PATH_DASHBOARD.farmer.loans, icon: ICONS.ecommerce },
+        { title: 'Trust Loan', path: PATH_DASHBOARD.farmer.loans, icon: ICONS.ecommerce },
         // { title: 'Farm Management', path: PATH_DASHBOARD.farmer.farmManagement, icon: ICONS.analytics },
         { title: 'Food bank', path: PATH_DASHBOARD.farmer.foodbank, icon: ICONS.banking },
         { title: 'Withdrawals', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
@@ -60,10 +61,10 @@ export const appNavConfig = {
       subheader: 'Navigation',
       items: [
         { title: 'Savings', path: PATH_DASHBOARD.shared.savings, icon: ICONS.dashboard },
-        { title: 'Trust Loan', path: PATH_DASHBOARD.farmer.loans, icon: ICONS.ecommerce },
         { title: 'Farm Management', path: PATH_DASHBOARD.farmer.farmManagement, icon: ICONS.analytics },
         { title: 'Food bank', path: PATH_DASHBOARD.farmer.foodbank, icon: ICONS.banking },
         { title: 'Withdrawals', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
+        { title: 'Managed Farmers', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
       ],
     },
   ],

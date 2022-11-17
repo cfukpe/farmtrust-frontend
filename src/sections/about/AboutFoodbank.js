@@ -13,7 +13,6 @@ import { _skills } from '../../_mock';
 import Image from '../../components/Image';
 import Iconify from '../../components/Iconify';
 import { MotionViewport, varFade } from '../../components/animate';
-import Link from 'next/link';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +27,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function AboutWhat() {
+export default function AboutFoodbank() {
   const theme = useTheme();
 
   const isDesktop = useResponsive('up', 'md');
@@ -48,7 +47,7 @@ export default function AboutWhat() {
                   <m.div variants={varFade().inUp}>
                     <Image
                       alt="our office 1"
-                      src="https://images.unsplash.com/photo-1518994603110-1912b3272afd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80"
+                      src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                       ratio="3/4"
                       sx={{
                         borderRadius: 2,
@@ -61,7 +60,7 @@ export default function AboutWhat() {
                   <m.div variants={varFade().inUp}>
                     <Image
                       alt="our office 2"
-                      src="https://images.unsplash.com/photo-1518994603110-1912b3272afd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80"
+                      src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
                       ratio="1/1"
                       sx={{ borderRadius: 2 }}
                     />
@@ -74,11 +73,7 @@ export default function AboutWhat() {
           <Grid item xs={12} md={6} lg={5}>
             <m.div variants={varFade().inRight}>
               <Typography variant="h2" sx={{ mb: 3 }}>
-                About Farmer's
-              </Typography>
-
-              <Typography variant="h2" sx={{ mb: 3 }} color='success'>
-                Trustfund?
+                About our Food Bank Program
               </Typography>
             </m.div>
 
@@ -88,35 +83,26 @@ export default function AboutWhat() {
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
                 }}
               >
-                Farmers Trustfund is an ititiative to provide small, medium and large scale farmer with accessible loans to facilitate seamless farming seasons.
+                Our food bank program enables both low and high income earners to save up for future food harvest. You no longer need to have a chunk of money all at once to afford the food you desire to eat.
               </Typography>
               <Typography
                 sx={{
                   color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
                 }}
               >
-                Part of the initiative include the food bank program where users digitally save as little as 200 Naira daily to buy fresh farm produce in the later months.
-              </Typography>
-              <Typography
-                sx={{
-                  color: (theme) => (theme.palette.mode === 'light' ? 'text.secondary' : 'common.white'),
-                }}
-              >
-                Of course, our profile would not be complete without mentioning our saving program. Set a target or flexible saving to buy or invest in the future.
+                With as little as 200 Naira only, you can save to get fresh farm produce in the coming months.
               </Typography>
             </m.div>
 
-            <m.div variants={varFade().inRight}>
-              <Link href='/auth/login' passHref>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  size="large"
-                  endIcon={<Iconify icon={'ic:round-arrow-right-alt'} width={24} height={24} />}
-                >
-                  Sign up for free!
-                </Button>
-              </Link>
+            <m.div variants={varFade().inRight} my={4}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                size="large"
+                endIcon={<Iconify icon={'ic:round-arrow-right-alt'} width={24} height={24} />}
+              >
+                Sign up today
+              </Button>
             </m.div>
           </Grid>
         </Grid>

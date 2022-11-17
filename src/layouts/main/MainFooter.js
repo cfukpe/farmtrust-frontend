@@ -30,8 +30,8 @@ const LINKS = [
   {
     headline: 'Contact',
     children: [
-      { name: 'support@minimals.cc', href: '#' },
-      { name: 'Los Angeles, 359  Hidden Valley Road', href: '#' },
+      { name: 'support@farmerstrustfund.com', href: '#' },
+      { name: '22 Bank road, Makurdi, Benue State', href: '#' },
     ],
   },
 ];
@@ -58,8 +58,8 @@ export default function MainFooter() {
           </Grid>
           <Grid item xs={8} md={3}>
             <Typography variant="body2" sx={{ pr: { md: 5 } }}>
-              The starting point for your next project with Minimal UI Kit, built on the newest
-              version of Material-UI ©, ready to be customized to your style.
+              Farmers Trustfund: We are an initiative to provide assessible agro product and loan to small, medium and large scale farmer.
+              We are also driving toward providing accessible loans to individual farmers and corporatives
             </Typography>
 
             <Stack

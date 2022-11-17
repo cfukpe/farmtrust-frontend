@@ -17,48 +17,52 @@ const IconStyle = styled(Iconify)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProfileAbout.propTypes = {
+ProfileFarmAbout.propTypes = {
   profile: PropTypes.object,
   user: PropTypes.object,
 };
 
-export default function ProfileAbout({ profile, user }) {
+export default function ProfileFarmAbout({ profile }) {
   const { quote, country, email, role, company, school } = profile;
-  console.log(user)
   return (
     <Card>
-      <CardHeader title="Basic Detail" />
+      <CardHeader title="Other Information" />
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Typography variant="body2"> Account Type: {profile?.role}</Typography>
-
+        <Typography variant="body2"> Farm Name:</Typography>
+        <Typography variant="h5" color='primary'>{profile?.farm?.farm_name}</Typography>
         <Stack direction="row">
-          <IconStyle icon={'ic:round-business-center'} />
+          <IconStyle icon={'eva:pin-fill'} />
+          <Typography variant="body2" sx={{ display: 'block' }}>
+            Farm Address: &nbsp;
+          </Typography>
           <Typography variant="body2">
-            Name: &nbsp;
             <Link component="span" variant="subtitle2" color="text.primary">
-              {profile?.last_name} {profile.first_name}
+              {profile?.farm?.farm_location}
             </Link>
           </Typography>
         </Stack>
         <Stack direction="row">
-          <IconStyle icon={'eva:email-fill'} />
-          <Typography variant="body2">{profile?.email}</Typography>
-        </Stack>
-
-        <Stack direction="row">
-          <IconStyle icon={'ic:round-business-center'} />
+          <IconStyle icon={'eva:pin-fill'} />
           <Typography variant="body2">
-            Account Type: &nbsp;
+            Farm State: &nbsp;
             <Link component="span" variant="subtitle2" color="text.primary">
-              {profile?.role}
+              {profile?.farm?.farm_state}
             </Link>
           </Typography>
         </Stack>
 
         <Stack direction="row">
-          <Chip color={profile?.status?.toLowerCase() == 'active' ? 'success' : 'error'} label={profile?.status} />
+          <IconStyle icon={'ic:round-business-center'} />
+          <Typography variant="body2">
+            Saving Plan : &nbsp;
+            <Link component="span" variant="subtitle2" color="text.primary">
+              {profile?.savings_plan}
+            </Link>
+          </Typography>
         </Stack>
+
+
       </Stack>
     </Card>
   );

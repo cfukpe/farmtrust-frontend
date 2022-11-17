@@ -23,8 +23,9 @@ import {
 } from '../../sections/@dashboard/general/app';
 // eslint-disable-next-line import/no-unresolved
 import { formatName } from 'src/utils/dataFormat';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FARMER } from 'src/utils/constants';
+import axiosInstance from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +38,14 @@ GeneralApp.getLayout = function getLayout(page) {
 export default function GeneralApp() {
   const { user } = useAuth();
 
+  const [userAnalytics, setUserAnalytics] = useState({
+    total_savings: 0,
+    total_foodbank: 0,
+    total_widthdrawals: 0,
+  })
+
+  const [loadingAnalytics, setLoadingAnalytics] = useState(false)
+
   useEffect(() => {
     if (user.role === FARMER && !user?.savings_plan) {
       return window.location.href = "/dashboard/plans"
@@ -45,6 +54,21 @@ export default function GeneralApp() {
     if (user.role === FARMER && user?.savings_plan && !user?.farm) {
       return window.location.href = "/dashboard/plans/setting"
     }
+
+    const init = async () => {
+      try {
+        setLoadingAnalytics(true)
+        const res = await axiosInstance.get('/user/home/analytics');
+        console.log(res)
+        setUserAnalytics(res.data?.data)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoadingAnalytics(false)
+      }
+    }
+
+    init();
   }, []);
 
   const theme = useTheme();
@@ -65,9 +89,9 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={4}>
             <AppWidgetSummary
-              title="Total Investment"
+              title="Total Savings"
               percent={2.6}
-              total={18765}
+              total={userAnalytics?.total_savings ?? 0}
               chartColor={theme.palette.primary.main}
               chartData={[5, 18, 12, 51, 68, 11, 39, 37, 27, 20]}
             />
@@ -75,9 +99,9 @@ export default function GeneralApp() {
 
           <Grid item xs={12} md={4}>
             <AppWidgetSummary
-              title="Running Investments"
+              title="Foodbank total"
               percent={0.2}
-              total={4876}
+              total={userAnalytics?.total_foodbank ?? 0}
               chartColor={theme.palette.chart.blue[0]}
               chartData={[20, 41, 63, 33, 28, 35, 50, 46, 11, 26]}
             />
@@ -87,14 +111,14 @@ export default function GeneralApp() {
             <AppWidgetSummary
               title="Total Withdrawals"
               percent={-0.1}
-              total={678}
+              total={userAnalytics.total_widthdrawals}
               chartColor={theme.palette.chart.red[0]}
               chartData={[8, 9, 31, 8, 16, 37, 8, 33, 46, 31]}
             />
           </Grid>
 
           <Grid item xs={12} md={6} lg={4}>
-            <AppCurrentDownload />
+            <AppCurrentDownload chartData={[userAnalytics.total_savings, userAnalytics.total_withdrawals]} />
           </Grid>
 
           <Grid item xs={12} md={6} lg={8}>

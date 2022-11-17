@@ -5,6 +5,7 @@ import { Box, Button, Card, Container, Typography } from '@mui/material';
 // components
 import Image from '../../components/Image';
 import { MotionViewport, varFade } from '../../components/animate';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -108,6 +109,8 @@ export default function HomeMinimal() {
 
   const isLight = theme.palette.mode === 'light';
 
+  const auth = useAuth();
+
   return (
     <RootStyle>
       <Container component={MotionViewport}>
@@ -158,9 +161,9 @@ export default function HomeMinimal() {
                   {card.title}
                 </Typography>
                 <Typography sx={{ color: isLight ? 'text.secondary' : 'common.white' }}>{card.description}</Typography>
-                <Button sx={{
+                {!card.linkText == "Register" && <Button sx={{
                   marginTop: '2rem'
-                }} color='primary' variant="contained" href={card.link}>{card.linkText}</Button>
+                }} color='primary' variant="contained" href={card.link}>{card.linkText}</Button>}
               </CardStyle>
             </m.div>
           ))}

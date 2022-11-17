@@ -7,35 +7,31 @@ import Layout from '../layouts';
 import Page from '../components/Page';
 // sections
 import { AboutHero, AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../sections/about';
+import AboutFoodbank from 'src/sections/about/AboutFoodbank';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(8),
-  [theme.breakpoints.up('md')]: {
-    paddingTop: theme.spacing(11),
-  },
+    paddingTop: theme.spacing(8),
+    [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(11),
+    },
 }));
 
 // ----------------------------------------------------------------------
 
-About.getLayout = function getLayout(page) {
-  return <Layout variant="main">{page}</Layout>;
+FoodBank.getLayout = function getLayout(page) {
+    return <Layout variant="main">{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------
 
-export default function About() {
-  return (
-    <Page title="About us">
-      <RootStyle>
-        <AboutHero />
-        <AboutWhat />
-        {/* <AboutVision />
-        <Divider orientation="vertical" sx={{ my: 10, mx: 'auto', width: 2, height: 40 }} />
-        <AboutTeam />
-        <AboutTestimonials /> */}
-      </RootStyle>
-    </Page>
-  );
+export default function FoodBank() {
+    return (
+        <Page title="About Food Bank">
+            <RootStyle>
+                <AboutFoodbank />
+            </RootStyle>
+        </Page>
+    );
 }

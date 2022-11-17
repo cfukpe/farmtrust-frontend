@@ -131,6 +131,11 @@ export default function Plans() {
             savings_plan: plan?.plan,
             user_id: user?.id,
         });
+
+        if (auth?.user?.role?.toUpperCase() === "FARMER")
+            push('/dashboard/plans/setting')
+
+        push('/dashboard/');
     };
 
     // you can call this function anything

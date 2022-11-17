@@ -17,6 +17,7 @@ import Label from '../../components/Label';
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -57,6 +58,8 @@ export default function MainHeader() {
 
   const isHome = pathname === '/';
 
+  const auth = useAuth()
+
   return (
     <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
       <ToolbarStyle
@@ -84,13 +87,19 @@ export default function MainHeader() {
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
 
-          <Button
+          {!auth?.user ? <Button
             variant="contained"
             rel="noopener"
             href="/auth/login"
           >
             Sign in
-          </Button>
+          </Button> : <Button
+            variant="contained"
+            rel="noopener"
+            href="/dashboard"
+          >
+            Dashboard
+          </Button>}
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>

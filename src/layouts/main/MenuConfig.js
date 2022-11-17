@@ -21,7 +21,7 @@ const menuConfig = [
   {
     title: 'Food Bank',
     icon: <Iconify icon={'ic:round-grain'} {...ICON_SIZE} />,
-    path: "#",
+    path: "/foodbank",
   },
   // {
   //   title: 'Farms',
@@ -70,7 +70,7 @@ const menuConfig = [
   {
     title: 'About',
     icon: <Iconify icon={'eva:book-open-fill'} {...ICON_SIZE} />,
-    path: '#',
+    path: '/about-us',
   },
   {
     title: 'Market Place',
