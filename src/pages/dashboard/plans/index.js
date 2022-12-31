@@ -3,7 +3,7 @@ import { m } from 'framer-motion';
 import NextLink from 'next/link';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Button, Typography, Container, Grid } from '@mui/material';
+import { Box, Button, Typography, Container, Grid, Dialog, DialogTitle, Divider, DialogContent, DialogActions, CircularProgress } from '@mui/material';
 // layouts
 import Layout from '../../../layouts';
 // components
@@ -17,6 +17,7 @@ import useAuth from 'src/hooks/useAuth';
 import axiosInstance from 'src/utils/axios';
 import { usePaystackPayment } from 'react-paystack';
 import Router, { useRouter } from 'next/router';
+import { useState } from 'react';
 
 
 // ----------------------------------------------------------------------
@@ -32,7 +33,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 Plans.getLayout = function getLayout(page) {
-    return <Layout variant="logoOnly">{page}</Layout>;
+    return <Layout>{page}</Layout>;
 };
 
 // ----------------------------------------------------------------------
@@ -69,6 +70,8 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function Plans() {
+    const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { push } = useRouter();
 
     const plan = useSelector(state => state.plan)
@@ -124,18 +127,26 @@ export default function Plans() {
     }
 
     // you can call this function anything
-    const onSuccess = async (reference) => {
+    const onSuccess = async () => {
         // Implementation for whatever you want to do with reference and after success call.
-        const res = await axiosInstance.post('/user/card-setting/verify', {
-            transactionId: reference?.trxref,
-            savings_plan: plan?.plan,
-            user_id: user?.id,
-        });
+        try {
+            setIsLoading(true)
+            const res = await axiosInstance.post('/user/card-setting/verify', {
+                // transactionId: reference?.trxref,
+                transactionId: 'N/A',
+                savings_plan: plan?.plan,
+                user_id: user?.id,
+            });
 
-        if (auth?.user?.role?.toUpperCase() === "FARMER")
-            push('/dashboard/plans/setting')
+            if (auth?.user?.role?.toUpperCase() === "FARMER")
+                push('/dashboard/plans/setting')
 
-        push('/dashboard/');
+            push('/dashboard/');
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
     };
 
     // you can call this function anything
@@ -145,6 +156,10 @@ export default function Plans() {
     }
 
     const initializePayment = usePaystackPayment(paystackConfig);
+
+    const handleShowPlanConfirmationModal = () => {
+        setShowConfirmationModal(true)
+    }
 
     return (
         <Page title="Savings Plan" sx={{ height: 1 }}>
@@ -193,15 +208,7 @@ export default function Plans() {
                             // <NextLink href="/" passHref>
                             <Button
                                 size="large"
-                                // onClick={() => handlePay({
-                                //     callback: handleChargeSuccess,
-                                //     onClose: () => {
-                                //         console.log("Closed")
-                                //     }
-                                // })}
-                                onClick={() => {
-                                    initializePayment(onSuccess, onClose)
-                                }}
+                                onClick={handleShowPlanConfirmationModal}
                                 variant="contained">
                                 Continue
                             </Button>
@@ -209,6 +216,28 @@ export default function Plans() {
                     </Box>
                 </Container>
             </RootStyle>
+            <Dialog open={showConfirmationModal} onClose={() => setShowConfirmationModal(false)}>
+                <DialogTitle>
+                    <Typography variant='h4' color='primary'>
+                        Confirm Plan
+                    </Typography>
+                    <Divider />
+                    <DialogContent>
+                        <Typography>
+                            Are you sure you want to continue with the selected plan?
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={onSuccess}
+                            disabled={isLoading}
+                            variant='contained'>
+                            Confirm
+                            {isLoading && <CircularProgress />}
+                        </Button>
+                    </DialogActions>
+                </DialogTitle>
+            </Dialog>
         </Page >
     );
 }

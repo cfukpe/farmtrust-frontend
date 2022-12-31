@@ -47,7 +47,7 @@ export default function AboutFoodbank() {
                   <m.div variants={varFade().inUp}>
                     <Image
                       alt="our office 1"
-                      src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                      src="https://shoponclick.ng/wp-content/uploads/2021/06/Carton-of-Indomie-Superpack-Chicken-Flavor.png"
                       ratio="3/4"
                       sx={{
                         borderRadius: 2,
@@ -60,7 +60,7 @@ export default function AboutFoodbank() {
                   <m.div variants={varFade().inUp}>
                     <Image
                       alt="our office 2"
-                      src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                      src="https://poweroil.com.ng/wp-content/uploads/2020/06/abtimg2.png"
                       ratio="1/1"
                       sx={{ borderRadius: 2 }}
                     />

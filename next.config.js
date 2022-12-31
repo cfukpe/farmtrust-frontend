@@ -13,6 +13,7 @@ module.exports = withTM({
   trailingSlash: true,
   env: {
     HOST_API_KEY: process.env.HOST_API_KEY,
+    HOST_API_BASE: process.env.HOST_API_BASE,
     // FIREBASE AUTH
     FIREBASE_API_KEY: '',
     FIREBASE_AUTH_DOMAIN: '',

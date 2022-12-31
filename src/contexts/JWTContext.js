@@ -138,6 +138,7 @@ function AuthProvider({ children }) {
       is_farmer,
     });
     const { accessToken, user } = response.data;
+    console.log(response)
     window.localStorage.setItem('accessToken', accessToken);
     dispatch({
       type: 'REGISTER',

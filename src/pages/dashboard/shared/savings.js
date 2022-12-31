@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Button, Container, Grid, Input, Stack, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Input, Stack, TextField, Typography } from '@mui/material';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useSettings from '../../../hooks/useSettings';
@@ -53,6 +53,12 @@ export default function Savings() {
 
     const [total, setTotal] = useState(0);
 
+    const [showAddMoneyDialog, setShowAddMoneyDialog] = useState(false)
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [proofOfPayment, setProofOfPayment] = useState(null);
+
     useEffect(() => {
         const initiate = async () => {
             try {
@@ -99,8 +105,44 @@ export default function Savings() {
             variant: 'error'
         });
 
+        if (!proofOfPayment) {
+            return enqueueSnackbar("You must upload proof of payment", {
+                variant: 'error'
+            });
+        }
 
-        initializePayment(onAddMoneySuccess, onCancelAddMoney)
+        const formData = new FormData();
+
+        formData.append('amount', amountToSave);
+        formData.append('file', proofOfPayment);
+
+
+
+        try {
+            setIsLoading(true);
+            const res = await axiosInstance.post('/user/saving', formData);
+            setShowAddMoneyDialog(false);
+            setProofOfPayment(null);
+            enqueueSnackbar("Money has been requested. Fund will be credited after verification. Please wait", {
+                variant: 'success',
+                anchorOrigin: {
+                    horizontal: 'right',
+                    vertical: 'top'
+                }
+            });
+            setFoodBankSavings(prev => [
+                res.data?.data,
+                ...prev
+            ])
+        } catch (error) {
+            enqueueSnackbar(APIErrorHandler(error), {
+                variant: 'error'
+            })
+        } finally {
+            setIsLoading(false)
+        }
+
+        // initializePayment(onAddMoneySuccess, onCancelAddMoney)
 
     }
 
@@ -117,8 +159,8 @@ export default function Savings() {
                 ...prev
             ])
 
-            setTotal(prev => prev + (res.data.data?.investment_amount || 0))
-            setAvailableBalance(prev => prev + (res.data.data?.investment_amount || 0))
+            // setTotal(prev => prev + (res.data.data?.investment_amount || 0))
+            // setAvailableBalance(prev => prev + (res.data.data?.investment_amount || 0))
         } catch (error) {
             enqueueSnackbar(APIErrorHandler(error), {
                 variant: 'error'
@@ -126,8 +168,9 @@ export default function Savings() {
         }
     }
 
-    const onCancelAddMoney = () => {
-
+    const handleProofOfPaymentChange = e => {
+        const file = e.target.files[0];
+        setProofOfPayment(file);
     }
 
     return (
@@ -162,19 +205,7 @@ export default function Savings() {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            value={amountToSave}
-                            onChange={handleAmountToSaveChange}
-                            type='number'
-                            InputProps={{
-                                endAdornment: <Button
-                                    variant='contained'
-                                    color="success"
-                                    onClick={handleAddFund}
-                                    size='2' >Add </Button>
-                            }}
-                        />
+                        <Button onClick={() => setShowAddMoneyDialog(true)} variant='contained'>Add Money <Iconify icon='il:money' /> </Button>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Typography variant='subtitle1' color='success'><b>Savings Plan:</b> </Typography>
@@ -189,27 +220,54 @@ export default function Savings() {
                             foodBankSavings={foodBankSavings}
                         />
                     </Grid>
+                    <Dialog fullWidth open={showAddMoneyDialog} onClose={() => setShowAddMoneyDialog(false)}>
+                        <DialogTitle>
+                            <Typography variant='h3' color='primary'>
+                                Add Money
+                            </Typography>
+                        </DialogTitle>
 
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopInstalledCountries />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <Stack spacing={3}>
-              <AppWidget title="Conversion" total={38566} icon={'eva:person-fill'} chartData={48} />
-              <AppWidget title="Applications" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
-            </Stack>
-          </Grid> */}
+                        <Divider />
+                        <DialogContent>
+                            <Grid xs={12} >
+                                <Typography variant='body2'>Amount to credit</Typography>
+                                <TextField
+                                    fullWidth
+                                    value={amountToSave}
+                                    onChange={handleAmountToSaveChange}
+                                    type='number'
+                                // InputProps={{
+                                //     endAdornment: <Button
+                                //         variant='contained'
+                                //         color="success"
+                                //         onClick={handleAddFund}
+                                //         size='2' >Add </Button>
+                                // }}
+                                />
+                            </Grid>
+                            <Grid xs={12} >
+                                <Typography my={2} variant='body2'>Upload proof of payment</Typography>
+                                <input
+                                    fullWidth
+                                    // value={amountToSave}
+                                    onChange={handleProofOfPaymentChange}
+                                    type='file'
+                                    accept="image/png,image/jpg,image/jpeg,image/webp"
+                                />
+                                <Typography type='body' color='primary'>
+                                    {proofOfPayment?.name}
+                                </Typography>
+                            </Grid>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button
+                                disabled={isLoading}
+                                onClick={handleAddFund}
+                                variant='contained'>Add money {isLoading && <CircularProgress />} </Button>
+                        </DialogActions>
+                    </Dialog>
                 </Grid>
             </Container>
-        </Page>
+        </Page >
     );
 }

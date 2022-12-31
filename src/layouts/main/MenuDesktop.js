@@ -241,7 +241,7 @@ function MenuDesktopItem({ item, isHome, isOpen, isOffset, onOpen, onClose }) {
     );
   }
 
-  if (title === 'About') {
+  if (title === 'Market Place') {
     return (
       <LinkStyle
         href={path}

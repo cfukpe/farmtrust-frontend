@@ -70,7 +70,7 @@ export default function FarmSettingForm({ isEdit = false, currentUser }) {
         state: Yup.string().required('Please select farm state'),
         farmCategory: Yup.string().required('Please select farm cagetory'),
         farmAddress: Yup.string().required('Please provide farm address'),
-        avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
+        // avatarUrl: Yup.mixed().test('required', 'Avatar is required', (value) => value !== ''),
         // isCorporative: Yup.boolean().test(isCorporative, "You must register at least two corporative members", () => corporativeMembers.length < 2)
     });
 

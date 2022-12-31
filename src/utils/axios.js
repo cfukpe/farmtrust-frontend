@@ -21,7 +21,14 @@ export const APIErrorHandler = response => {
 
   }
 
+}
 
+export const getHostAPIBase = () => {
+  return process.env.HOST_API_BASE;
+}
+
+export const getHostAPI = () => {
+  return process.env.HOST_API_KEY;
 }
 
 export default axiosInstance;

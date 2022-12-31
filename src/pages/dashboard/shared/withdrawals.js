@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Button, Container, Grid, Input, Stack, TextField } from '@mui/material';
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Input, Stack, TextField, Typography } from '@mui/material';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useSettings from '../../../hooks/useSettings';
@@ -44,6 +44,7 @@ export default function Withdrawals() {
     const { user } = useAuth();
 
     const [withdrawals, setWithdrawals] = useState([]);
+    const [showWithdrawalDialog, setShowWithdrawalDialog] = useState(false)
 
     useEffect(() => {
         const initiate = async () => {
@@ -72,8 +73,6 @@ export default function Withdrawals() {
         // if (amountToSave < 200) return enqueueSnackbar("You can only save a minimun of 200 Naira", {
         //     variant: 'error'
         // });
-
-
         initializePayment(onAddMoneySuccess, onCancelAddMoney)
 
     }
@@ -118,7 +117,9 @@ export default function Withdrawals() {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Button color="success" variant='contained'>
+                        <Button
+                            onClick={() => setShowWithdrawalDialog(true)}
+                            color="success" variant='contained'>
                             New Withdrawal <Iconify icon='uil:money-withdraw' color="#f89" /></Button>
                     </Grid>
 
@@ -128,26 +129,64 @@ export default function Withdrawals() {
                         />
                     </Grid>
 
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopInstalledCountries />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <Stack spacing={3}>
-              <AppWidget title="Conversion" total={38566} icon={'eva:person-fill'} chartData={48} />
-              <AppWidget title="Applications" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
-            </Stack>
-          </Grid> */}
                 </Grid>
             </Container>
+            <Dialog open={showWithdrawalDialog} onClose={() => setShowWithdrawalDialog(false)}>
+                <DialogTitle>
+                    <Typography variant='h3' color='success'>
+                        Withdraw Money
+                    </Typography>
+                </DialogTitle>
+                <Divider />
+                <DialogContent>
+                    <Grid container>
+                        <Grid md={6}>
+                            <TextField
+                                label='Account Name'
+                            />
+                        </Grid>
+                        <Grid md={6}>
+                            <TextField
+                                label='Account Number'
+                            />
+                        </Grid>
+
+                        <Grid md={12} my={2}>
+                            <TextField
+                                select
+                                label='Select Bank'
+                                fullWidth
+                            >
+                                <option>Access Bank PLC</option>
+                                <option>Zenith Bank</option>
+                                <option>GT Bank</option>
+                                <option>Keystone Bank</option>
+                                <option>Kuda MFB</option>
+                                <option>Diamond (Access) Bank</option>
+                                <option>FCMB</option>
+                                <option>First Bank PLC</option>
+                                <option>UBA</option>
+                                <option>Union Bank</option>
+                                <option>Unity Bank</option>
+                            </TextField>
+                        </Grid>
+
+                        <Grid md={12}>
+                            <TextField
+                                label='Amount to Withdraw'
+                                fullWidth
+                            />
+                        </Grid>
+
+                        <Grid xs={12}>
+                            <Typography color='error' my={1} variant='body2'>Please note that you need to use the platform for three months before requesting withdrawal.</Typography>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant='contained'>Request</Button>
+                </DialogActions>
+            </Dialog>
         </Page>
     );
 }

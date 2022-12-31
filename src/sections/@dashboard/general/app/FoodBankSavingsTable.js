@@ -44,7 +44,7 @@ export default function FoodBankSavingsTable({ foodBankSavings }) {
                 <TableCell>ID</TableCell>
                 <TableCell>Date saved</TableCell>
                 <TableCell>Amount saved</TableCell>
-                {/* <TableCell>Status</TableCell> */}
+                <TableCell>Status</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -54,18 +54,18 @@ export default function FoodBankSavingsTable({ foodBankSavings }) {
                   <TableCell>{`INV-${row.id}`}</TableCell>
                   <TableCell>{moment(row.created_at).format('dddd, DD-MM-YYYY')}</TableCell>
                   <TableCell>₦{fCurrency(row.investment_amount)}</TableCell>
-                  {/* <TableCell>
+                  <TableCell>
                     <Label
                       variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
                       color={
-                        (row.status === 'in_progress' && 'warning') ||
-                        (row.status === 'out_of_date' && 'error') ||
-                        'success'
+                        (row.status?.toLowerCase() === 'pending' && 'warning') ||
+                        (row.status?.toLowerCase() === 'verified' && 'success') ||
+                        'error'
                       }
                     >
                       {sentenceCase(row.status)}
                     </Label>
-                  </TableCell> */}
+                  </TableCell>
                   <TableCell align="right">
                     <MoreMenuButton />
                   </TableCell>

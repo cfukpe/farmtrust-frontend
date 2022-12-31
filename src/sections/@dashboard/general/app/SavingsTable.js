@@ -16,6 +16,10 @@ import {
   CardHeader,
   IconButton,
   TableContainer,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography
 } from '@mui/material';
 // utils
 import { fCurrency } from '../../../../utils/formatNumber';
@@ -27,11 +31,14 @@ import Iconify from '../../../../components/Iconify';
 import Scrollbar from '../../../../components/Scrollbar';
 import MenuPopover from '../../../../components/MenuPopover';
 import moment from 'moment';
+import { getHostAPIBase } from 'src/utils/axios';
 
 // ----------------------------------------------------------------------
 
 export default function SavingsTable({ foodBankSavings }) {
   const theme = useTheme();
+
+  const [activeImage, setActiveImage] = useState(null);
 
   return (
     <Card>
@@ -44,7 +51,8 @@ export default function SavingsTable({ foodBankSavings }) {
                 <TableCell>ID</TableCell>
                 <TableCell>Date saved</TableCell>
                 <TableCell>Amount saved</TableCell>
-                {/* <TableCell>Status</TableCell> */}
+                <TableCell>Status</TableCell>
+                <TableCell>Action</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -54,20 +62,26 @@ export default function SavingsTable({ foodBankSavings }) {
                   <TableCell>{`INV-${row.id}`}</TableCell>
                   <TableCell>{moment(row.created_at).format('dddd, DD-MM-YYYY')}</TableCell>
                   <TableCell>₦{fCurrency(row.amount)}</TableCell>
-                  {/* <TableCell>
+                  <TableCell>
                     <Label
                       variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
                       color={
-                        (row.status === 'in_progress' && 'warning') ||
-                        (row.status === 'out_of_date' && 'error') ||
-                        'success'
+                        (row.status.toLowerCase() === 'pending' && 'warning') ||
+                        (row.status.toLowerCase() === 'verified' && 'success') ||
+                        'error'
                       }
                     >
                       {sentenceCase(row.status)}
                     </Label>
-                  </TableCell> */}
+                  </TableCell>
+
+                  <TableCell>
+                    <Button
+                      onClick={() => setActiveImage(getHostAPIBase() + row.proof_upload_url)}
+                    >View Proof</Button>
+                  </TableCell>
                   <TableCell align="right">
-                    <MoreMenuButton />
+                    {/* <MoreMenuButton /> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -83,7 +97,17 @@ export default function SavingsTable({ foodBankSavings }) {
           View All
         </Button>
       </Box>
+      <Dialog fullWidth open={activeImage} onClose={() => setActiveImage(null)}>
+        <DialogTitle>
+          <Typography>Proof of payment</Typography>
+        </DialogTitle>
+        <DialogContent>
+          <img src={activeImage} width='100%' height='100%' />
+
+        </DialogContent>
+      </Dialog>
     </Card>
+
   );
 }
 

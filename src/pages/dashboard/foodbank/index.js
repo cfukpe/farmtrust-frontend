@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Button, Container, Grid, Input, Stack, TextField } from '@mui/material';
+import { Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Input, Stack, TextField, Typography } from '@mui/material';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useSettings from '../../../hooks/useSettings';
@@ -29,6 +29,7 @@ import FoodBankSavingsTable from 'src/sections/@dashboard/general/app/FoodBankSa
 import { useSnackbar } from 'notistack';
 import { usePaystackPayment } from 'react-paystack';
 import axiosInstance, { APIErrorHandler } from 'src/utils/axios';
+import Iconify from 'src/components/Iconify';
 
 // ----------------------------------------------------------------------
 
@@ -50,6 +51,13 @@ export default function FoodBankIndex() {
     const [withdrawals, setWithdrawals] = useState(0);
 
     const [total, setTotal] = useState(0);
+
+
+    const [showAddMoneyDialog, setShowAddMoneyDialog] = useState(false)
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [proofOfPayment, setProofOfPayment] = useState(null);
 
     useEffect(() => {
         const initiate = async () => {
@@ -97,9 +105,50 @@ export default function FoodBankIndex() {
             variant: 'error'
         });
 
+        if (!proofOfPayment) {
+            return enqueueSnackbar("You must upload proof of payment", {
+                variant: 'error'
+            });
+        }
 
-        initializePayment(onAddMoneySuccess, onCancelAddMoney)
+        const formData = new FormData();
 
+        formData.append('amount', amountToSave);
+        formData.append('file', proofOfPayment);
+
+
+
+        try {
+            setIsLoading(true);
+            const res = await axiosInstance.post('/user/foodbank', formData);
+            setShowAddMoneyDialog(false);
+            setProofOfPayment(null);
+            enqueueSnackbar("Money has been requested. Fund will be credited after verification. Please wait", {
+                variant: 'success',
+                anchorOrigin: {
+                    horizontal: 'right',
+                    vertical: 'top'
+                }
+            });
+            setFoodBankSavings(prev => [
+                res.data?.data,
+                ...prev
+            ])
+        } catch (error) {
+            enqueueSnackbar(APIErrorHandler(error), {
+                variant: 'error'
+            })
+        } finally {
+            setIsLoading(false)
+        }
+
+        // initializePayment(onAddMoneySuccess, onCancelAddMoney)
+
+    }
+
+    const handleProofOfPaymentChange = e => {
+        const file = e.target.files[0];
+        setProofOfPayment(file);
     }
 
     const onAddMoneySuccess = async (transaction) => {
@@ -160,19 +209,7 @@ export default function FoodBankIndex() {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField
-                            fullWidth
-                            value={amountToSave}
-                            onChange={handleAmountToSaveChange}
-                            type='number'
-                            InputProps={{
-                                endAdornment: <Button
-                                    variant='contained'
-                                    color="success"
-                                    onClick={handleAddFund}
-                                    size='2' >Add </Button>
-                            }}
-                        />
+                        <Button onClick={() => setShowAddMoneyDialog(true)} variant='contained'>Add Money <Iconify icon='il:money' /> </Button>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Button variant='contained' color='success' fullWidth >Buy Food</Button>
@@ -184,26 +221,51 @@ export default function FoodBankIndex() {
                         />
                     </Grid>
 
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopRelated />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <AppTopInstalledCountries />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AppTopAuthors />
-          </Grid> */}
-
-                    {/* <Grid item xs={12} md={6} lg={4}>
-            <Stack spacing={3}>
-              <AppWidget title="Conversion" total={38566} icon={'eva:person-fill'} chartData={48} />
-              <AppWidget title="Applications" total={55566} icon={'eva:email-fill'} color="warning" chartData={75} />
-            </Stack>
-          </Grid> */}
                 </Grid>
             </Container>
+
+            <Dialog fullWidth open={showAddMoneyDialog} onClose={() => setShowAddMoneyDialog(false)}>
+                <DialogTitle>
+                    <Typography variant='h3' color='primary'>
+                        Food bank: Add Money
+                    </Typography>
+                </DialogTitle>
+
+                <Divider />
+                <DialogContent>
+                    <Grid xs={12} >
+                        <Typography variant='body2'>Amount to credit</Typography>
+                        <TextField
+                            fullWidth
+                            value={amountToSave}
+                            onChange={handleAmountToSaveChange}
+                            type='number'
+                        />
+                    </Grid>
+                    <Grid xs={12} >
+                        <Typography my={2} variant='body2'>Upload proof of payment</Typography>
+                        <input
+                            fullWidth
+                            // value={amountToSave}
+                            onChange={handleProofOfPaymentChange}
+                            type='file'
+                            accept="image/png,image/jpg,image/jpeg,image/webp"
+                        />
+                        <Typography type='body' color='primary'>
+                            {proofOfPayment?.name}
+                        </Typography>
+                    </Grid>
+                    <Grid xs={12}>
+                        <Typography color='error' my={1}>Please note that proof of payment needs to be confirmed before credit would reflect on your account</Typography>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        disabled={isLoading}
+                        onClick={handleAddFund}
+                        variant='contained'>Add money {isLoading && <CircularProgress />} </Button>
+                </DialogActions>
+            </Dialog>
         </Page>
     );
 }
