@@ -107,6 +107,17 @@ export const PATH_DASHBOARD = {
   shared: {
     savings: path(ROOTS_DASHBOARD, '/shared/savings'),
     withdrawals: path(ROOTS_DASHBOARD, '/shared/withdrawals'),
+  },
+  admin: {
+    savings: path(ROOTS_DASHBOARD, '/admin/savings'),
+    investments: path(ROOTS_DASHBOARD, '/admin/investments'),
+    foodbank: path(ROOTS_DASHBOARD, '/admin/foodbank'),
+    users: path(ROOTS_DASHBOARD, '/admin/users'),
+    investmentManagement: path(ROOTS_DASHBOARD, '/admin/investment-management'),
+  },
+  agent: {
+    farmerSavings: path(ROOTS_DASHBOARD, '/agent/savings'),
+    farmerFoodBanking: path(ROOTS_DASHBOARD, '/agent/foodbank'),
   }
 };
 

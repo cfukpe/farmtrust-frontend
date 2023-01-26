@@ -1,6 +1,6 @@
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Input, Stack, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, Input, List, ListItem, Stack, TextField, Typography } from '@mui/material';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useSettings from '../../../hooks/useSettings';
@@ -46,7 +46,7 @@ export default function FoodBankIndex() {
 
     const [foodBankSavings, setFoodBankSavings] = useState([]);
 
-    const [availableBalance, setAvailableBalance] = useState([]);
+    const [approved, setApproved] = useState(0);
 
     const [withdrawals, setWithdrawals] = useState(0);
 
@@ -65,8 +65,8 @@ export default function FoodBankIndex() {
                 const res = await axiosInstance.get(`/user/${user?.id}/foodbank`)
                 const analyticaRes = await axiosInstance.get(`/user/${user?.id}/foodbank/analytics`)
                 setFoodBankSavings(res.data?.data)
-                const { total, withdrawals } = analyticaRes.data?.data;
-                setAvailableBalance(total - withdrawals)
+                const { total, withdrawals, approved } = analyticaRes.data?.data;
+                setApproved(approved)
                 setTotal(total)
                 setWithdrawals(withdrawals)
             } catch (error) {
@@ -115,9 +115,6 @@ export default function FoodBankIndex() {
 
         formData.append('amount', amountToSave);
         formData.append('file', proofOfPayment);
-
-
-
         try {
             setIsLoading(true);
             const res = await axiosInstance.post('/user/foodbank', formData);
@@ -151,31 +148,6 @@ export default function FoodBankIndex() {
         setProofOfPayment(file);
     }
 
-    const onAddMoneySuccess = async (transaction) => {
-        const { trxref } = transaction;
-
-        try {
-            const res = await axiosInstance.post('/user/foodbank', {
-                trxref,
-            });
-
-            setFoodBankSavings(prev => [
-                res.data?.data,
-                ...prev
-            ])
-
-            setTotal(prev => prev + (res.data.data?.investment_amount || 0))
-            setAvailableBalance(prev => prev + (res.data.data?.investment_amount || 0))
-        } catch (error) {
-            enqueueSnackbar(APIErrorHandler(error), {
-                variant: 'error'
-            })
-        }
-    }
-
-    const onCancelAddMoney = () => {
-
-    }
 
     return (
         <Page title="Dashboard: Food Bank">
@@ -192,9 +164,9 @@ export default function FoodBankIndex() {
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <AppWidgetSummary
-                            title="Available"
+                            title="Approved"
                             percent={-0.1}
-                            total={availableBalance}
+                            total={approved}
                             chartColor={theme.palette.chart.red[0]}
                             chartData={[8, 9, 31, 8, 16, 37, 8, 33, 46, 31]}
                         />
@@ -233,6 +205,30 @@ export default function FoodBankIndex() {
 
                 <Divider />
                 <DialogContent>
+                    <Grid xs={12}>
+                        <Typography>
+                            Please pay to any of the accounts below and upload proof of payment.
+                        </Typography>
+
+
+                        <List sx={{ backgroundColor: '#458945', borderRadius: '1rem', margin: '1rem 0' }}>
+                            <ListItem>
+                                <Typography mt={2} color='white' variant='h6'>
+                                    <strong>Account Name:</strong> Wirex Global Ventures
+                                </Typography>
+                            </ListItem>
+                            <ListItem>
+                                <Typography variant='body' color='white'>
+                                    2000146428 - FCMB
+                                </Typography>
+                            </ListItem>
+                            <ListItem>
+                                <Typography variant='body' color='white'>
+                                    0088698769 - Sterling Bank
+                                </Typography>
+                            </ListItem>
+                        </List>
+                    </Grid>
                     <Grid xs={12} >
                         <Typography variant='body2'>Amount to credit</Typography>
                         <TextField

@@ -40,7 +40,7 @@ export const appNavConfig = {
       ],
     },
   ],
-  BUYER: [
+  INVESTOR: [
     // GENERAL
     // ----------------------------------------------------------------------
     {
@@ -64,7 +64,8 @@ export const appNavConfig = {
         { title: 'Farm Management', path: PATH_DASHBOARD.farmer.farmManagement, icon: ICONS.analytics },
         { title: 'Food bank', path: PATH_DASHBOARD.farmer.foodbank, icon: ICONS.banking },
         { title: 'Withdrawals', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
-        { title: 'Managed Farmers', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
+        { title: 'Farmers Savings', path: PATH_DASHBOARD.agent.farmerSavings, icon: ICONS.ecommerce },
+        { title: 'Farmers FoodBank', path: PATH_DASHBOARD.agent.farmerFoodBanking, icon: ICONS.booking },
       ],
     },
   ],
@@ -74,11 +75,11 @@ export const appNavConfig = {
     {
       subheader: 'Navigation',
       items: [
-        { title: 'All Users', path: PATH_DASHBOARD.shared.savings, icon: ICONS.dashboard },
+        { title: 'All Users', path: PATH_DASHBOARD.admin.users, icon: ICONS.dashboard },
         { title: 'All Products', path: PATH_DASHBOARD.farmer.loans, icon: ICONS.ecommerce },
         { title: 'All Investments', path: PATH_DASHBOARD.farmer.farmManagement, icon: ICONS.analytics },
-        { title: 'All Food Banks', path: PATH_DASHBOARD.farmer.foodbank, icon: ICONS.banking },
-        { title: 'All Savings', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
+        { title: 'Users Food Banks', path: PATH_DASHBOARD.admin.foodbank, icon: ICONS.banking },
+        { title: 'Users Savings', path: PATH_DASHBOARD.admin.savings, icon: ICONS.booking },
         { title: 'Loans Management', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
       ],
     },

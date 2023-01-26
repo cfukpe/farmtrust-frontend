@@ -66,17 +66,18 @@ export default function SavingsTable({ foodBankSavings }) {
                     <Label
                       variant={theme.palette.mode === 'light' ? 'ghost' : 'filled'}
                       color={
-                        (row.status.toLowerCase() === 'pending' && 'warning') ||
-                        (row.status.toLowerCase() === 'verified' && 'success') ||
+                        (row.status?.toLowerCase() === 'pending' && 'warning') ||
+                        (row.status?.toLowerCase() === 'approved' && 'success') ||
                         'error'
                       }
                     >
-                      {sentenceCase(row.status)}
+                      {row.status}
                     </Label>
                   </TableCell>
 
                   <TableCell>
                     <Button
+                      variant='outlined'
                       onClick={() => setActiveImage(getHostAPIBase() + row.proof_upload_url)}
                     >View Proof</Button>
                   </TableCell>

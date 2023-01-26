@@ -55,6 +55,7 @@ export default function TrustLoan() {
     return (
         <Page title="Dashboard:">
             <Container maxWidth={themeStretch ? false : 'xl'}>
+
                 <Grid container spacing={3}>
                     {/* <Grid item xs={12} md={8}>
                         <AppWelcome displayName={formatName(user)} />
@@ -65,7 +66,7 @@ export default function TrustLoan() {
                             You are currently not eligible for Trust Loans.
                         </h1>
                         <h1>
-                            You need to use our savings for at least 6 months
+                            You need to use our savings for at least 3 months
                         </h1>
                         <Link passHref href="#">See eligibility criteria</Link>
                         {/* <AppFeatured /> */}
