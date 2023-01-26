@@ -127,7 +127,7 @@ function AuthProvider({ children }) {
     });
   };
 
-  const register = async (email, password, first_name, last_name, password_confirmation, is_farmer) => {
+  const register = async (email, password, first_name, last_name, password_confirmation, is_farmer, phone_number) => {
 
     const response = await axios.post('/register', {
       email,
@@ -136,9 +136,9 @@ function AuthProvider({ children }) {
       last_name,
       password_confirmation,
       is_farmer,
+      phone_number
     });
     const { accessToken, user } = response.data;
-    console.log(response)
     window.localStorage.setItem('accessToken', accessToken);
     dispatch({
       type: 'REGISTER',
