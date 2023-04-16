@@ -65,6 +65,7 @@ AuthProvider.propTypes = {
 
 
 function AuthProvider({ children }) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -113,7 +114,7 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const response = await axios.post('/login', {
+    const response = await axios.post(`${API_URL}/login`, {
       email,
       password,
     });
@@ -129,7 +130,7 @@ function AuthProvider({ children }) {
 
   const register = async (email, password, first_name, last_name, password_confirmation, is_farmer, phone_number) => {
 
-    const response = await axios.post('/register', {
+    const response = await axios.post(`${API_URL}/register`, {
       email,
       password,
       first_name,
