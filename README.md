@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+### Pre-requisites 
+
+1. The `.babelrc` configuration file disables SWC as replacement for Babel. 
+   To use SWC, delete the `.babelrc` file before running. 
+2. Copy the `.env.local.example` file to `.env.local` and edit the environment variable values as appropriate.
+
+
 First, run the development server:
 
 ```bash
