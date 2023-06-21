@@ -69,6 +69,13 @@ const TABLE_COLUMNS = [
             sort: false,
         }
     },
+    {
+        name: '',
+        options: {
+            filter: false,
+            sort: false,
+        }
+    },
 ]
 
 
@@ -166,6 +173,11 @@ export default function UserSavings() {
                                     color='error'
                                     onClick={() => handleShowUpdateUser(user)}
                                     size='small'>Update</Button>,
+                                    <Button
+                                    variant='contained'
+                                    color='error'
+                                    onClick={() => handleShowUpdateUser(user)}
+                                    size='small'>Transactions</Button>,
 
                             ]))}
                             options={{

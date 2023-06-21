@@ -3,6 +3,7 @@ export const FARMER = 'FARMER';
 export const INVESTOR = 'INVESTOR';
 export const BUYER = 'BUYER';
 export const AGENT = 'AGENT';
+export const SUPER_ADMIN = 'SUPER ADMIN';
 
 export const INITIALIZE = 'INITIALIZE';
 
