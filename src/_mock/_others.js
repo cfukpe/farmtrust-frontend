@@ -32,7 +32,7 @@ export const homeCarousel = [
   {
     id: 5,
     title: 'Use your card',
-    image: `/slider1.jpg`,
+    image: `/bizipay.jpeg`,
     description: "Worry no more about food! With as little as #200 daily you can get access to quality fresh food",
   },
   // {
