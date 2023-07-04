@@ -110,10 +110,11 @@ export const PATH_DASHBOARD = {
   },
   admin: {
     savings: path(ROOTS_DASHBOARD, '/admin/savings'),
-    investments: path(ROOTS_DASHBOARD, '/admin/investments'),
+    investments: path(ROOTS_DASHBOARD, '/admin/investment'),
+    investmentPackages: path(ROOTS_DASHBOARD, '/admin/investmentPackages'),
     foodbank: path(ROOTS_DASHBOARD, '/admin/foodbank'),
     users: path(ROOTS_DASHBOARD, '/admin/users'),
-    investmentManagement: path(ROOTS_DASHBOARD, '/admin/investment-management'),
+    investmentManagement: path(ROOTS_DASHBOARD, '/admin/investment'),
   },
   agent: {
     farmerSavings: path(ROOTS_DASHBOARD, '/agent/savings'),

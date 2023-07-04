@@ -77,7 +77,8 @@ export const appNavConfig = {
       items: [
         { title: 'All Users', path: PATH_DASHBOARD.admin.users, icon: ICONS.dashboard },
         { title: 'All Products', path: PATH_DASHBOARD.farmer.loans, icon: ICONS.ecommerce },
-        { title: 'All Investments', path: PATH_DASHBOARD.farmer.farmManagement, icon: ICONS.analytics },
+        { title: 'Investment Categories', path: PATH_DASHBOARD.admin.investments, icon: ICONS.analytics },
+        { title: 'Investment Packages', path: PATH_DASHBOARD.admin.investmentPackages, icon: ICONS.analytics },
         { title: 'Users Food Banks', path: PATH_DASHBOARD.admin.foodbank, icon: ICONS.banking },
         { title: 'Users Savings', path: PATH_DASHBOARD.admin.savings, icon: ICONS.booking },
         { title: 'Loans Management', path: PATH_DASHBOARD.shared.withdrawals, icon: ICONS.booking },
